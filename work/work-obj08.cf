@@ -1,0 +1,7 @@
+v 4
+file "/home/anthony/projects/vhdl/semaphore/" "tb/tb_semaphore.vhd" "eaf6750244ca25979d0750e2855dd8e58ce65aa1" "20261110124615.815":
+  entity tb_semaphore at 1( 0) + 0 on 29;
+  architecture sim of tb_semaphore at 8( 104) + 0 on 30;
+file "/home/anthony/projects/vhdl/semaphore/" "src/traffic_controller.vhd" "753265c5f3871b3e7c97abd7df4b411ef2e1b883" "20261110124615.815":
+  entity traffic_controller at 1( 0) + 0 on 27;
+  architecture behaviour of traffic_controller at 23( 443) + 0 on 28;

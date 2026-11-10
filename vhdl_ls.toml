@@ -1,0 +1,6 @@
+# vhdl_ls.toml
+[libraries]
+work.files = [
+    "src/*.vhd",
+    "tb/*.vhd"
+]
