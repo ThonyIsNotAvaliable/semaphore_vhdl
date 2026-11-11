@@ -25,32 +25,45 @@ architecture behaviour of traffic_controller is
 
   signal state, next_state: STATE_TYPE;
   
-  constant GREEN_CYCLES : INTEGER := 10;
-  constant YELLOW_CYCLES : INTEGER := 5;
+  constant GREEN_CYCLES : STD_LOGIC_VECTOR(3 downto 0) := "1010"; -- 10 em binário
+  constant YELLOW_CYCLES : STD_LOGIC_VECTOR(3 downto 0) := "0101"; -- 5 em binário
 
-  signal counter : INTEGER := 0;
-  signal rst_counter : std_logic := '0';
+  signal counter : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  signal rst_counter : STD_LOGIC := '0';
+  signal comb_reset : STD_LOGIC := '0';
 
 begin
+
+  comb_reset <= rst_counter or reset;
+
+  d_counter : entity work.contador
+  generic map(W => 3)
+  port map(
+    RESET => comb_reset,
+    INPUT => clk,
+    OUTPUT => counter
+  );
+
+
   REG: process (clk, reset) begin 
     if reset = '1' then
       state <= IDLE_STATE;
-      counter <= 0;
-    elsif rising_edge(clk) then
-      if rst_counter = '1' then
-        counter <= 0;
+      rst_counter <= '0';
+    elsif rising_edge(clk) then     
+      state <= next_state;
+      
+      if state /= next_state then
+         rst_counter <= '1';
       else
-        counter <= counter + 1;
+         rst_counter <= '0';
       end if;
       
-      state <= next_state;
     end if;    
   end process REG;
 
   CMB: process (state, start, counter) begin
     street_a_g <= '0'; street_a_y <= '0'; street_a_r <= '1';
     street_b_g <= '0'; street_b_y <= '0'; street_b_r <= '1';
-    rst_counter <= '0';
     done <= '0';
     next_state <= state;
 
@@ -58,7 +71,7 @@ begin
       when IDLE_STATE =>
         if start = '1' then
           next_state <= A_GREEN_B_RED;
-          rst_counter <= '1';
+
         end if;
 
       when A_GREEN_B_RED =>
@@ -70,9 +83,9 @@ begin
         street_b_y <= '0'; 
         street_b_r <= '1';
 
-        if counter >= GREEN_CYCLES then
+        if counter = GREEN_CYCLES then
           next_state <= A_YELLOW_B_RED;
-          rst_counter <= '1';
+
         end if;
 
       when A_YELLOW_B_RED =>
@@ -84,9 +97,9 @@ begin
         street_b_y <= '0'; 
         street_b_r <= '1';
 
-        if counter >= YELLOW_CYCLES then
+        if counter = YELLOW_CYCLES then
           next_state <= A_RED_B_GREEN;
-          rst_counter <= '1';
+
         end if;
 
       when A_RED_B_GREEN =>
@@ -98,9 +111,9 @@ begin
         street_b_y <= '0';
         street_b_r <= '0';
 
-        if counter >= GREEN_CYCLES then
+        if counter = GREEN_CYCLES then
           next_state <= A_RED_B_YELLOW;
-          rst_counter <= '1';
+
         end if;
 
       when A_RED_B_YELLOW =>
@@ -112,9 +125,9 @@ begin
         street_b_y <= '1';
         street_b_r <= '0';
 
-        if counter >= YELLOW_CYCLES then
+        if counter = YELLOW_CYCLES then
           next_state <= DONE_STATE;
-          rst_counter <= '1';
+
         end if;
 
       when DONE_STATE =>

@@ -1,7 +1,16 @@
 v 4
-file "/home/anthony/projects/vhdl/semaphore/" "tb/tb_semaphore.vhd" "eaf6750244ca25979d0750e2855dd8e58ce65aa1" "20261110124615.815":
-  entity tb_semaphore at 1( 0) + 0 on 29;
-  architecture sim of tb_semaphore at 8( 104) + 0 on 30;
-file "/home/anthony/projects/vhdl/semaphore/" "src/traffic_controller.vhd" "753265c5f3871b3e7c97abd7df4b411ef2e1b883" "20261110124615.815":
-  entity traffic_controller at 1( 0) + 0 on 27;
-  architecture behaviour of traffic_controller at 23( 443) + 0 on 28;
+file "/home/anthony/projects/vhdl/semaphore/" "src/traffic_controller.vhd" "d8e0ff2485fc01a4f69c4276c252234a16c4d7b8" "20261111163244.059":
+  entity traffic_controller at 1( 0) + 0 on 111;
+  architecture behaviour of traffic_controller at 23( 443) + 0 on 112;
+file "/home/anthony/projects/vhdl/semaphore/" "tb/tb_semaphore.vhd" "eaf6750244ca25979d0750e2855dd8e58ce65aa1" "20261111163244.060":
+  entity tb_semaphore at 1( 0) + 0 on 113;
+  architecture sim of tb_semaphore at 8( 104) + 0 on 114;
+file "/home/anthony/projects/vhdl/semaphore/" "src/d_latch.vhd" "0f2edcd98b1a39bfd89455b331f39906cbc4d630" "20261111163244.053":
+  entity d_latch at 1( 0) + 0 on 105;
+  architecture structural of d_latch at 16( 238) + 0 on 106;
+file "/home/anthony/projects/vhdl/semaphore/" "src/d_flipflop.vhd" "e9782366796a92feb1aa1fd1a138b661ad85a374" "20261111163244.053":
+  entity d_flipflop at 1( 0) + 0 on 107;
+  architecture structural of d_flipflop at 16( 244) + 0 on 108;
+file "/home/anthony/projects/vhdl/semaphore/" "src/contador.vhd" "f3398ed78209b1cd3fe8bbaaed47f6f6a9368d7b" "20261111163244.054":
+  entity contador at 1( 0) + 0 on 109;
+  architecture structural of contador at 14( 222) + 0 on 110;
